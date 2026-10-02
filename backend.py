@@ -11,6 +11,7 @@ from typing import Dict, Any
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 import torch
 
@@ -28,6 +29,15 @@ from model import (
 app = FastAPI(
     title="CatDog Vision Classifier",
     description="API for classifying cat and dog images with unrelated object detection"
+)
+
+# CORS middleware for frontend integration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins for local development
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Configuration
